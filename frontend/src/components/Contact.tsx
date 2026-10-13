@@ -33,7 +33,7 @@ export function Contact({ settings }: { settings: SiteSettings }) {
     const data = new FormData(form);
 
     if (!token) {
-      setStatus({ type: 'error', message: 'Kérjük, igazolja, hogy nem robot (captcha).' });
+      setStatus({ type: 'error', message: 'Kérem, igazolja, hogy nem robot (captcha).' });
       return;
     }
 
@@ -66,7 +66,7 @@ export function Contact({ settings }: { settings: SiteSettings }) {
             Időpontfoglalás
           </h2>
           <p className="section-lead">
-            Írjon nekünk, vagy hívjon bizalommal – egyeztetjük a kutyája állapotát és a legalkalmasabb időpontot.
+            Írjon nekem, vagy hívjon bizalommal – egyeztetem a kutyája állapotát és a legalkalmasabb időpontot.
           </p>
 
           <ul className="contact-list">
@@ -80,7 +80,7 @@ export function Contact({ settings }: { settings: SiteSettings }) {
             </li>
             <li>
               <PinIcon />
-              <span>Győr és 15 km-es körzete (házhoz megyünk)</span>
+              <span>Győr és 15 km-es körzete (házhoz megyek)</span>
             </li>
           </ul>
 
@@ -158,7 +158,7 @@ export function Contact({ settings }: { settings: SiteSettings }) {
             </button>
 
             <div aria-live="polite">
-              {status.type === 'ok' && <p className="form-msg ok">Köszönjük! Üzenetét megkaptuk, hamarosan válaszolunk.</p>}
+              {status.type === 'ok' && <p className="form-msg ok">Köszönöm! Üzenetét megkaptam, hamarosan válaszolok.</p>}
               {status.type === 'error' && <p className="form-msg err">{status.message}</p>}
             </div>
           </form>

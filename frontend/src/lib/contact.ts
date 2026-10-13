@@ -5,7 +5,7 @@ const ACCESS_KEY = import.meta.env.VITE_WEB3FORMS_KEY as string | undefined;
 export const HCAPTCHA_SITE_KEY =
   (import.meta.env.VITE_HCAPTCHA_SITEKEY as string | undefined) || '50b2fe65-b00b-4b9e-ad62-3ba471098be2';
 
-const DEFAULT_ERROR = 'Az üzenet küldése nem sikerült. Kérjük, próbálja újra, vagy hívjon telefonon.';
+const DEFAULT_ERROR = 'Az üzenet küldése nem sikerült. Kérem, próbálja újra, vagy hívjon telefonon.';
 
 export async function sendContact(payload: {
   name: string;
@@ -46,6 +46,6 @@ export async function sendContact(payload: {
     /* keep default message */
   }
   if (!res.ok || body.success !== true) {
-    throw new Error(res.status === 429 ? 'Túl sok kérés. Kérjük, próbálja később.' : DEFAULT_ERROR);
+    throw new Error(res.status === 429 ? 'Túl sok kérés. Kérem, próbálja később.' : DEFAULT_ERROR);
   }
 }

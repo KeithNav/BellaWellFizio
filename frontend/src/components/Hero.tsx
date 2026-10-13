@@ -17,7 +17,7 @@ function HeroImage({ image }: { image?: StrapiImage | null }) {
       <img
         src={mediaUrl(image.url)}
         srcSet={imageSrcSet(image)}
-        sizes="(max-width: 900px) 80vw, 480px"
+        sizes="(max-width: 900px) 92vw, 640px"
         alt={image.alternativeText || 'BellaWell Kutya-fizioterápia'}
         width={image.width}
         height={image.height}

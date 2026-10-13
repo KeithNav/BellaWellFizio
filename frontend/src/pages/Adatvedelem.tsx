@@ -46,7 +46,7 @@ export default function Adatvedelem() {
 
       <h3>Spamvédelem (hCaptcha)</h3>
       <p>
-        A kapcsolatfelvételi űrlap automatizált visszaélések elleni védelmére a hCaptcha szolgáltatást használjuk
+        A kapcsolatfelvételi űrlap automatizált visszaélések elleni védelmére a hCaptcha szolgáltatást használom
         (Intuition Machines, Inc.). A szolgáltatás működése során az Ön böngészőjének és eszközének bizonyos adatait (pl.
         IP-cím, böngészőadatok, egérmozgás) kezelheti. Jogalap: jogos érdek (6. cikk (1) f) pont) az oldal védelme
         érdekében. Részletek: <a href="https://www.hcaptcha.com/privacy" target="_blank" rel="noopener noreferrer">hcaptcha.com/privacy</a>.
@@ -54,7 +54,7 @@ export default function Adatvedelem() {
 
       <h3>Látogatottság-mérés (Simple Analytics)</h3>
       <p>
-        Az oldal forgalmának anonim méréséhez a Simple Analytics szolgáltatást használjuk (Simple Analytics B.V.,
+        Az oldal forgalmának anonim méréséhez a Simple Analytics szolgáltatást használom (Simple Analytics B.V.,
         Hollandia). A szolgáltatás nem használ sütiket, nem azonosítja az egyes látogatókat, és személyes adatot nem
         tárol (pl. az IP-címet nem menti el). Jogalap: jogos érdek (6. cikk (1) f) pont) az oldal fejlesztése
         érdekében. Részletek:{' '}
@@ -72,7 +72,7 @@ export default function Adatvedelem() {
 
       <h2>3. Sütik, nyomkövetés</h2>
       <p>
-        A weboldal saját marketing- vagy analitikai sütiket nem használ, a betűtípusokat saját kiszolgálóról töltjük be,
+        A weboldal saját marketing- vagy analitikai sütiket nem használ, a betűtípusokat saját kiszolgálóról töltöm be,
         külső szolgáltató nélkül. A hCaptcha működéséhez technikailag szükséges adatok tárolódhatnak a böngészőben.
       </p>
 
@@ -91,14 +91,14 @@ export default function Adatvedelem() {
         <li>Simple Analytics B.V. – anonim látogatottság-mérés, lásd fent.</li>
       </ul>
       <p>
-        Adatait harmadik félnek nem értékesítjük és marketing célra nem adjuk át. Harmadik országba (pl. USA) történő
+        Adatait harmadik félnek nem értékesítem és marketing célra nem adom át. Harmadik országba (pl. USA) történő
         adattovábbítás a Web3Forms, hCaptcha és Google szolgáltatások esetén az Európai Bizottság megfelelőségi határozatán vagy
         általános szerződési feltételein (SCC) alapulhat.
       </p>
 
       <h2>5. Közösségi oldalak</h2>
       <p>
-        Weboldalunk hivatkozik Facebook- és Instagram-oldalainkra. A hivatkozásra kattintva az adott szolgáltató saját
+        Weboldalam hivatkozik Facebook- és Instagram-oldalaimra. A hivatkozásra kattintva az adott szolgáltató saját
         adatkezelési szabályai érvényesek.
       </p>
 
@@ -113,7 +113,7 @@ export default function Adatvedelem() {
         <li>a hozzájárulás bármikor visszavonható, ez nem érinti a visszavonás előtti adatkezelés jogszerűségét.</li>
       </ul>
       <p>
-        Kérelmét a {B.email} címen terjesztheti elő, amelyre legkésőbb egy hónapon belül válaszolunk.
+        Kérelmét a {B.email} címen terjesztheti elő, amelyre legkésőbb egy hónapon belül válaszolok.
       </p>
 
       <h2>7. Jogorvoslat</h2>

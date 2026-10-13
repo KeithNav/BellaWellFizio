@@ -50,6 +50,9 @@ export function Gallery({ items, loading }: { items: GalleryItem[]; loading: boo
       });
     });
 
+    lightbox.on('beforeOpen', () => document.getElementById(GALLERY_ID)?.classList.add('is-open'));
+    lightbox.on('destroy', () => document.getElementById(GALLERY_ID)?.classList.remove('is-open'));
+
     lightbox.init();
     return () => lightbox.destroy();
   }, [photos.length]);
@@ -67,7 +70,7 @@ export function Gallery({ items, loading }: { items: GalleryItem[]; loading: boo
         {photos.length === 0 ? (
           <p className="gallery-empty">
             <PawIcon />
-            {loading ? 'Képek betöltése…' : 'Hamarosan új képekkel jelentkezünk.'}
+            {loading ? 'Képek betöltése…' : 'Hamarosan új képekkel jelentkezem.'}
           </p>
         ) : (
           <div id={GALLERY_ID} className="bento">

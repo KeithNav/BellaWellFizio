@@ -342,7 +342,7 @@ ul {
 }
 .hero-grid {
   display: grid;
-  grid-template-columns: 1.1fr 0.9fr;
+  grid-template-columns: 0.88fr 1.12fr;
   gap: 3rem;
   align-items: center;
   position: relative;
@@ -379,21 +379,20 @@ ul {
   justify-content: center;
 }
 .hero-arch {
-  width: min(380px, 80%);
-  aspect-ratio: 3 / 4;
-  border-radius: 999px 999px var(--radius) var(--radius);
+  width: min(640px, 100%);
+  border-radius: 32px;
   overflow: hidden;
   background: linear-gradient(160deg, var(--pink-100), var(--pink-300));
   box-shadow: var(--shadow);
   border: 8px solid var(--white);
 }
 .hero-arch img {
+  display: block;
   width: 100%;
-  height: 100%;
-  object-fit: cover;
+  height: auto;
 }
 .hero-placeholder {
-  height: 100%;
+  aspect-ratio: 4 / 3;
   display: grid;
   place-items: center;
   color: rgba(255, 255, 255, 0.85);
@@ -627,6 +626,7 @@ ul {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  transition: transform 0.7s cubic-bezier(0.2, 0.7, 0.2, 1);
 }
 .bento-tile::after {
   content: '';
@@ -636,10 +636,27 @@ ul {
   opacity: 0;
   transition: opacity 0.4s;
 }
-/* A scale transform on the thumbnail would change the bounds PhotoSwipe zooms to/from, so hover only tints the tile. */
+/* The hover zoom is switched off while the lightbox opens (.is-open), so PhotoSwipe measures the unscaled thumbnail. */
 .bento-tile:hover::after,
 .bento-tile:focus-visible::after {
   opacity: 1;
+}
+@media (hover: hover) and (prefers-reduced-motion: no-preference) {
+  .bento-tile {
+    transition: box-shadow 0.4s;
+  }
+  .bento-tile:hover,
+  .bento-tile:focus-visible {
+    box-shadow: 0 18px 38px -16px rgba(212, 82, 127, 0.65);
+  }
+  .bento-tile:hover img,
+  .bento-tile:focus-visible img {
+    transform: scale(1.07);
+  }
+  .bento.is-open .bento-tile img {
+    transform: none;
+    transition: none;
+  }
 }
 
 @media (min-width: 561px) {
@@ -1019,7 +1036,7 @@ ul {
     order: -1;
   }
   .hero-arch {
-    width: min(220px, 56%);
+    width: min(440px, 100%);
     border-width: 6px;
   }
   .pillars {

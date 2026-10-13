@@ -24,13 +24,13 @@ export function About() {
     <section id="rolunk" className="section" aria-labelledby="about-title">
       <div className="container">
         <Reveal className="section-head">
-          <p className="eyebrow">Rólunk</p>
+          <p className="eyebrow">Rólam</p>
           <h2 id="about-title" className="section-title">
             Mozgás, ami hosszú távon is számít
           </h2>
           <p className="section-lead">
             A BellaWellnél a kutyád testi kényelme áll a középpontban. Műtétek és sérülések utáni rehabilitációban, az
-            idősödő társak komfortjának megőrzésében és a mozgásprobléma-megelőzésben segítünk – otthon, a megszokott
+            idősödő társak komfortjának megőrzésében és a mozgásprobléma-megelőzésben segítek – otthon, a megszokott
             környezetben, nyugodt tempóban. A kezelés kiegészíti, nem helyettesíti az állatorvosi ellátást.
           </p>
         </Reveal>
