@@ -81,6 +81,9 @@ export function Gallery({ items, loading }: { items: GalleryItem[]; loading: boo
                   href={full.url}
                   data-pswp-width={full.width}
                   data-pswp-height={full.height}
+                  // Thumbnails are cropped (object-fit: cover); PhotoSwipe must know, or the zoom animation
+                  // targets the uncropped image box and the picture jumps at the end.
+                  data-cropped="true"
                   target="_blank"
                   rel="noreferrer"
                   className={`bento-tile ${tileClasses(i, photos.length)}`}
