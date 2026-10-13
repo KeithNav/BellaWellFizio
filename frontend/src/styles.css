@@ -811,6 +811,18 @@ ul {
   gap: 2.5rem;
   align-items: start;
 }
+.footer-about {
+  display: flex;
+  align-items: flex-start;
+  gap: 1.4rem;
+}
+.footer-paw {
+  flex: none;
+  width: 64px;
+  height: 64px;
+  color: var(--pink-300);
+  transform: rotate(-14deg);
+}
 .footer-brand {
   font-family: var(--font-serif);
   font-size: 2rem;
@@ -1191,6 +1203,11 @@ ul {
     justify-items: center;
     text-align: center;
     gap: 1.8rem;
+  }
+  .footer-about {
+    flex-direction: column;
+    align-items: center;
+    gap: 0.8rem;
   }
   .footer-about .socials {
     justify-content: center;
