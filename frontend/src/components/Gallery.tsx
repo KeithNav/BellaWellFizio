@@ -1,80 +1,58 @@
-import { useCallback, useEffect, useRef, useState } from 'react';
-import { imageSrcSet, mediaUrl } from '../lib/api';
+import { useEffect } from 'react';
+import PhotoSwipeLightbox from 'photoswipe/lightbox';
+import 'photoswipe/style.css';
+import { imageSrcSet, lightboxImage, mediaUrl } from '../lib/api';
 import type { GalleryItem } from '../lib/types';
 import { PawIcon } from './Icons';
 import { Reveal } from './Reveal';
 
-function Lightbox({ items, index, onClose, onMove }: { items: GalleryItem[]; index: number; onClose: () => void; onMove: (d: number) => void }) {
-  const closeRef = useRef<HTMLButtonElement>(null);
-  const item = items[index];
-  const image = item.image!;
+const GALLERY_ID = 'bento-gallery';
+const DESKTOP_BLOCK = 6;
+const MOBILE_BLOCK = 4;
 
-  useEffect(() => {
-    const onKey = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') onClose();
-      if (e.key === 'ArrowLeft') onMove(-1);
-      if (e.key === 'ArrowRight') onMove(1);
-    };
-    document.addEventListener('keydown', onKey);
-    document.body.style.overflow = 'hidden';
-    closeRef.current?.focus();
-    return () => {
-      document.removeEventListener('keydown', onKey);
-      document.body.style.overflow = '';
-    };
-  }, [onClose, onMove]);
-
-  return (
-    <div className="lightbox" role="dialog" aria-modal="true" aria-label="Képnézegető" onClick={onClose}>
-      <button ref={closeRef} type="button" className="lb-btn lb-close" onClick={onClose} aria-label="Bezárás">
-        ×
-      </button>
-      {items.length > 1 && (
-        <>
-          <button
-            type="button"
-            className="lb-btn lb-prev"
-            onClick={(e) => {
-              e.stopPropagation();
-              onMove(-1);
-            }}
-            aria-label="Előző kép"
-          >
-            ‹
-          </button>
-          <button
-            type="button"
-            className="lb-btn lb-next"
-            onClick={(e) => {
-              e.stopPropagation();
-              onMove(1);
-            }}
-            aria-label="Következő kép"
-          >
-            ›
-          </button>
-        </>
-      )}
-      <figure onClick={(e) => e.stopPropagation()}>
-        <img
-          src={mediaUrl(image.formats?.large?.url ?? image.url)}
-          alt={image.alternativeText || item.title || 'BellaWell galéria'}
-        />
-        {item.title && <figcaption>{item.title}</figcaption>}
-      </figure>
-    </div>
-  );
+// Tiles repeat in fixed blocks (6 on desktop, 4 on mobile) that tile the grid exactly;
+// the last tile of an incomplete block is stretched in CSS so the grid never ends with holes.
+function tileClasses(index: number, total: number) {
+  const last = index === total - 1 ? ' fill' : '';
+  return `d${index % DESKTOP_BLOCK} m${index % MOBILE_BLOCK}${last}`;
 }
 
 export function Gallery({ items, loading }: { items: GalleryItem[]; loading: boolean }) {
   const photos = items.filter((i) => i.image);
-  const [active, setActive] = useState<number | null>(null);
 
-  const close = useCallback(() => setActive(null), []);
-  const move = useCallback(
-    (d: number) => setActive((i) => (i === null ? i : (i + d + photos.length) % photos.length)),
-    [photos.length],
-  );
+  useEffect(() => {
+    if (photos.length === 0) return;
+    const lightbox = new PhotoSwipeLightbox({
+      gallery: `#${GALLERY_ID}`,
+      children: 'a',
+      pswpModule: () => import('photoswipe'),
+      bgOpacity: 0.92,
+      closeTitle: 'Bezárás',
+      zoomTitle: 'Nagyítás',
+      arrowPrevTitle: 'Előző kép',
+      arrowNextTitle: 'Következő kép',
+      errorMsg: 'A kép nem tölthető be.',
+      indexIndicatorSep: ' / ',
+    });
+
+    lightbox.on('uiRegister', () => {
+      lightbox.pswp?.ui?.registerElement({
+        name: 'caption',
+        order: 9,
+        isButton: false,
+        appendTo: 'root',
+        onInit: (el, pswp) => {
+          el.className = 'pswp-caption';
+          pswp.on('change', () => {
+            el.textContent = pswp.currSlide?.data.alt ?? '';
+          });
+        },
+      });
+    });
+
+    lightbox.init();
+    return () => lightbox.destroy();
+  }, [photos.length]);
 
   return (
     <section id="galeria" className="section" aria-labelledby="gallery-title">
@@ -92,24 +70,36 @@ export function Gallery({ items, loading }: { items: GalleryItem[]; loading: boo
             {loading ? 'Képek betöltése…' : 'Hamarosan új képekkel jelentkezünk.'}
           </p>
         ) : (
-          <ul className="gallery-grid">
-            {photos.map((item, i) => (
-              <li key={item.id}>
-                <button type="button" onClick={() => setActive(i)} aria-label={`Kép megnyitása: ${item.title || i + 1}`}>
+          <div id={GALLERY_ID} className="bento">
+            {photos.map((item, i) => {
+              const image = item.image!;
+              const full = lightboxImage(image);
+              const alt = image.alternativeText || item.title || 'BellaWell kutya-fizioterápia';
+              return (
+                <a
+                  key={item.id}
+                  href={full.url}
+                  data-pswp-width={full.width}
+                  data-pswp-height={full.height}
+                  target="_blank"
+                  rel="noreferrer"
+                  className={`bento-tile ${tileClasses(i, photos.length)}`}
+                  aria-label={`Kép megnyitása: ${alt}`}
+                >
                   <img
-                    src={mediaUrl(item.image!.formats?.medium?.url ?? item.image!.url)}
-                    srcSet={imageSrcSet(item.image!)}
-                    sizes="(max-width: 600px) 50vw, (max-width: 1000px) 33vw, 300px"
-                    alt={item.image!.alternativeText || item.title || 'BellaWell galéria'}
-                    loading="lazy"
+                    src={mediaUrl(image.formats?.medium?.url ?? image.url)}
+                    srcSet={imageSrcSet(image)}
+                    sizes="(max-width: 700px) 50vw, (max-width: 1200px) 45vw, 560px"
+                    alt={alt}
+                    loading={i < 2 ? 'eager' : 'lazy'}
+                    decoding="async"
                   />
-                </button>
-              </li>
-            ))}
-          </ul>
+                </a>
+              );
+            })}
+          </div>
         )}
       </div>
-      {active !== null && photos[active] && <Lightbox items={photos} index={active} onClose={close} onMove={move} />}
     </section>
   );
 }

@@ -36,6 +36,24 @@ beállítódnak.
 A frontend a `/api/services`, `/api/gallery-items` és `/api/site-setting` végpontokról tölt. Ha a backend nem érhető el,
 az árlista beépített alapértékekkel jelenik meg.
 
+## Galéria (bento rács + PhotoSwipe)
+
+A galéria képei a **Galéria elem** tartalomtípusból jönnek, a megjelenítési sorrendet az `order` mező adja. A kép
+automatikusan több méretben készül el (500/800/1280/1920 px): a rács a kisebbeket, a PhotoSwipe nagyítás az 1920 px-es
+változatot tölti be. A bento elrendezés hat darabos blokkokban ismétlődik (nagy – magas – magas / széles – kicsi –
+kicsi), így a sorrend módosításával lehet az elrendezést alakítani; az utolsó blokk hiányzó helyeit a rács kitölti.
+
+Képek tömeges feltöltése egy mappából (a Strapi közben **ne** fusson):
+
+```powershell
+cd backend
+npm run import:gallery -- public/uploads/pictures
+```
+
+A script csak üres galériánál fut le (`--force` kapcsolóval újra), a képeket a Media Library-be tölti, és a hero képet
+is beállítja. A kiinduló mappa eredeti, nagy fájljait az import után érdemes törölni, mert a `public/uploads` alatt
+a Strapi publikusan kiszolgálja őket.
+
 ## Környezeti változók
 
 `backend/.env` (lásd `.env.example`): Strapi kulcsok, `CLIENT_URLS` (CORS), `HCAPTCHA_SITEKEY`, `HCAPTCHA_SECRET`,

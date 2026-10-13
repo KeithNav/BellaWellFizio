@@ -51,3 +51,11 @@ export function imageSrcSet(image: StrapiImage) {
     .map((f) => `${mediaUrl(f.url)} ${f.width}w`)
     .join(', ');
 }
+
+// Largest generated size up to 1920px wide: sharp enough for the lightbox without shipping multi-MB originals.
+export function lightboxImage(image: StrapiImage) {
+  const f = image.formats ?? {};
+  const pick = f.xlarge ?? f.large ?? f.medium ?? null;
+  const src = pick ?? { url: image.url, width: image.width ?? 1600, height: image.height ?? 1200 };
+  return { url: mediaUrl(src.url), width: src.width, height: src.height };
+}
