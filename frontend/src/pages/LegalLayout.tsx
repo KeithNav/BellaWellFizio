@@ -5,9 +5,13 @@ import { PrintIcon } from '../components/Icons';
 export function LegalLayout({ title, updated, children }: { title: string; updated: string; children: ReactNode }) {
   useEffect(() => {
     const previous = document.title;
+    const canonical = document.querySelector<HTMLLinkElement>('link[rel="canonical"]');
+    const previousCanonical = canonical?.href;
     document.title = `${title} | BellaWell Kutya-fizioterápia`;
+    if (canonical) canonical.href = `https://bellawellfizio.hu${window.location.pathname}`;
     return () => {
       document.title = previous;
+      if (canonical && previousCanonical) canonical.href = previousCanonical;
     };
   }, [title]);
 
