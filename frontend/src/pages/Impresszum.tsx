@@ -16,10 +16,10 @@ export default function Impresszum() {
         <dd>{B.address}</dd>
         <dt>Adószám</dt>
         <dd>{B.taxNumber}</dd>
-        <dt>Nyilvántartási szám</dt>
+        <dt>Egyéni vállalkozói nyilvántartási szám</dt>
         <dd>{B.registrationNumber}</dd>
-        <dt>Nyilvántartó szerv</dt>
-        <dd>{B.registrationAuthority}</dd>
+        <dt>Statisztikai számjel</dt>
+        <dd>{B.statisticalNumber}</dd>
         <dt>E-mail</dt>
         <dd>
           <a href={`mailto:${B.email}`}>{B.email}</a>
