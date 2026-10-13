@@ -797,11 +797,10 @@ ul {
   padding: 3.5rem 0 1.5rem;
 }
 .footer-inner {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  align-items: center;
-  gap: 2rem;
+  display: grid;
+  grid-template-columns: 1.4fr 1fr 1fr;
+  gap: 2.5rem;
+  align-items: start;
 }
 .footer-brand {
   font-family: var(--font-serif);
@@ -810,25 +809,41 @@ ul {
   line-height: 1;
 }
 .footer-sub {
-  margin: 0.3rem 0 0;
+  margin: 0.3rem 0 1.2rem;
   letter-spacing: 0.2em;
   text-transform: uppercase;
   font-size: 0.72rem;
   color: var(--pink-300);
 }
-.footer-links {
-  display: flex;
-  gap: 1.8rem;
-  flex-wrap: wrap;
+.footer-contact {
+  font-size: 0.95rem;
+  margin-bottom: 1.2rem;
 }
-.footer-links a {
+.footer-contact a,
+.footer-col a {
   color: #f5e6ea;
   text-decoration: none;
-  font-size: 0.9rem;
-  border-bottom: 1px solid rgba(244, 179, 203, 0.4);
 }
-.footer-links a:hover {
+.footer-contact a:hover,
+.footer-col a:hover {
   color: var(--pink-300);
+}
+.footer-col {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+.footer-heading {
+  margin: 0 0 0.6rem;
+  font-size: 0.72rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--pink-300);
+}
+.footer-col a {
+  font-size: 0.95rem;
+  padding: 0.3rem 0;
+  width: fit-content;
 }
 .site-footer .socials a {
   color: var(--pink-300);
@@ -1144,17 +1159,18 @@ ul {
     height: 22px;
   }
   .footer-inner {
-    flex-direction: column;
-    align-items: center;
+    grid-template-columns: 1fr;
+    justify-items: center;
     text-align: center;
-    gap: 1.5rem;
+    gap: 1.8rem;
   }
-  .footer-links {
-    flex-direction: column;
+  .footer-about .socials {
+    justify-content: center;
+  }
+  .footer-col {
     align-items: center;
-    gap: 0.4rem;
   }
-  .footer-links a {
+  .footer-col a {
     padding: 0.5rem 0;
   }
   .site-footer {

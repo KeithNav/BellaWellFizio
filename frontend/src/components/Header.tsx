@@ -1,14 +1,8 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import type { SiteSettings } from '../lib/types';
+import { NAV } from '../lib/nav';
 import { FacebookIcon, InstagramIcon, PawIcon } from './Icons';
-
-const NAV = [
-  { id: 'rolunk', label: 'Rólunk' },
-  { id: 'szolgaltatasok', label: 'Szolgáltatások és árak' },
-  { id: 'galeria', label: 'Galéria' },
-  { id: 'kapcsolat', label: 'Kapcsolat' },
-];
 
 export function Header({ settings }: { settings: SiteSettings }) {
   const [open, setOpen] = useState(false);
