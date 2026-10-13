@@ -52,6 +52,18 @@ export default function Adatvedelem() {
         érdekében. Részletek: <a href="https://www.hcaptcha.com/privacy" target="_blank" rel="noopener noreferrer">hcaptcha.com/privacy</a>.
       </p>
 
+      <h3>Látogatottság-mérés (Simple Analytics)</h3>
+      <p>
+        Az oldal forgalmának anonim méréséhez a Simple Analytics szolgáltatást használjuk (Simple Analytics B.V.,
+        Hollandia). A szolgáltatás nem használ sütiket, nem azonosítja az egyes látogatókat, és személyes adatot nem
+        tárol (pl. az IP-címet nem menti el). Jogalap: jogos érdek (6. cikk (1) f) pont) az oldal fejlesztése
+        érdekében. Részletek:{' '}
+        <a href="https://simpleanalytics.com/privacy-policy" target="_blank" rel="noopener noreferrer">
+          simpleanalytics.com/privacy-policy
+        </a>
+        .
+      </p>
+
       <h3>Technikai naplózás</h3>
       <p>
         A weboldal biztonságos működéséhez a kiszolgáló technikai naplót vezethet (IP-cím, időpont, kért oldal).
@@ -71,11 +83,16 @@ export default function Adatvedelem() {
           E-mail szolgáltató: az üzenetek a {B.email} címre érkeznek (Google Ireland Limited / Gmail), amely a
           szolgáltatás nyújtásához szükséges feldolgozó.
         </li>
+        <li>
+          Űrlapszolgáltató: az űrlapon megadott adatokat a Web3Forms (Web3Forms Inc.) továbbítja e-mailben a {B.email}
+          címre.
+        </li>
         <li>hCaptcha (Intuition Machines, Inc.) – spamvédelem, lásd fent.</li>
+        <li>Simple Analytics B.V. – anonim látogatottság-mérés, lásd fent.</li>
       </ul>
       <p>
         Adatait harmadik félnek nem értékesítjük és marketing célra nem adjuk át. Harmadik országba (pl. USA) történő
-        adattovábbítás a hCaptcha és Google szolgáltatások esetén az Európai Bizottság megfelelőségi határozatán vagy
+        adattovábbítás a Web3Forms, hCaptcha és Google szolgáltatások esetén az Európai Bizottság megfelelőségi határozatán vagy
         általános szerződési feltételein (SCC) alapulhat.
       </p>
 

@@ -17,45 +17,21 @@ export const fetchGallery = () =>
 
 export const fetchSettings = () => getJson<SiteSettings>('/api/site-setting?populate=heroImage');
 
-export async function sendContact(payload: {
-  name: string;
-  email: string;
-  phone: string;
-  message: string;
-  privacyAccepted: boolean;
-  captchaToken: string;
-  website: string;
-}) {
-  const res = await fetch(`${API_URL}/api/contact`, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(payload),
-  });
-  if (!res.ok) {
-    let message = 'Az üzenet küldése nem sikerült. Kérjük, próbálja újra, vagy hívjon telefonon.';
-    try {
-      const body = (await res.json()) as { error?: { message?: string } };
-      if (body.error?.message) message = body.error.message;
-    } catch {
-      /* keep default message */
-    }
-    throw new Error(message);
-  }
-}
-
-export function imageSrcSet(image: StrapiImage) {
-  const sizes = Object.values(image.formats ?? {});
-  if (image.width) sizes.push({ url: image.url, width: image.width, height: image.height ?? 0 });
+export function imageSrcSet(image: StrapiImage): string {
+  const sizes = Object.values(image.formats ?? {}).map((f) => ({ url: f.url, width: f.width }));
+  if (image.width) sizes.push({ url: image.url, width: image.width });
   return sizes
     .sort((a, b) => a.width - b.width)
-    .map((f) => `${mediaUrl(f.url)} ${f.width}w`)
+    .map((s) => `${mediaUrl(s.url)} ${s.width}w`)
     .join(', ');
 }
 
-// Largest generated size up to 1920px wide: sharp enough for the lightbox without shipping multi-MB originals.
 export function lightboxImage(image: StrapiImage) {
-  const f = image.formats ?? {};
-  const pick = f.xlarge ?? f.large ?? f.medium ?? null;
-  const src = pick ?? { url: image.url, width: image.width ?? 1600, height: image.height ?? 1200 };
-  return { url: mediaUrl(src.url), width: src.width, height: src.height };
+  const formats = image.formats ?? {};
+  const best = formats.xlarge ?? formats.large ?? formats.medium ?? {
+    url: image.url,
+    width: image.width ?? 1600,
+    height: image.height ?? 1200,
+  };
+  return { url: mediaUrl(best.url), width: best.width, height: best.height };
 }

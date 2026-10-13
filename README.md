@@ -59,11 +59,13 @@ a Strapi publikusan kiszolgálja őket.
 `backend/.env` (lásd `.env.example`): Strapi kulcsok, `CLIENT_URLS` (CORS), `HCAPTCHA_SITEKEY`, `HCAPTCHA_SECRET`,
 `SMTP_*`, `CONTACT_TO`, `CONTACT_FROM`.
 
-`frontend/.env` (lásd `.env.example`): `VITE_API_URL`, `VITE_HCAPTCHA_SITEKEY`.
+`frontend/.env` (lásd `.env.example`): `VITE_API_URL`, `VITE_WEB3FORMS_KEY`, `VITE_HCAPTCHA_SITEKEY`.
 
-> A mellékelt hCaptcha kulcsok a hCaptcha nyilvános **teszt** kulcsai. Élesítés előtt cserélni kell a saját kulcsokra
-> (hcaptcha.com), és be kell állítani az SMTP szolgáltatót, különben az űrlap éles módban nem tud üzenetet küldeni.
-> A kapcsolati űrlap hCaptcha-ellenőrzését és e-mail küldését még nem teszteltük végig.
+> A kapcsolati űrlap a **Web3Forms**-on keresztül működik (böngészőből közvetlenül küld, a Strapi `/api/contact`
+> végpontját már nem használja). A Web3Forms access key publikus; a Web3Forms dashboardon érdemes a domain szerinti
+> korlátozást bekapcsolni, és az űrlapnál az hCaptcha-t engedélyezni. Az ingyenes csomagban a Web3Forms saját hCaptcha
+> sitekey-ét kell használni (`50b2fe65-b00b-4b9e-ad62-3ba471098be2`, ez az alapérték), saját hCaptcha kulcs csak fizetős
+> csomaggal használható. Az SMTP és a `HCAPTCHA_*` backend változók így nem szükségesek.
 
 ## Élesítés előtti teendők
 

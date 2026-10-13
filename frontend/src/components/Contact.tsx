@@ -1,13 +1,11 @@
 import HCaptcha from '@hcaptcha/react-hcaptcha';
 import { useEffect, useRef, useState, type FormEvent } from 'react';
 import { Link } from 'react-router-dom';
-import { sendContact } from '../lib/api';
+import { HCAPTCHA_SITE_KEY, sendContact } from '../lib/contact';
 import { telHref } from '../lib/content';
 import type { SiteSettings } from '../lib/types';
 import { FacebookIcon, InstagramIcon, MailIcon, PhoneIcon, PinIcon } from './Icons';
 import { Reveal } from './Reveal';
-
-const SITE_KEY = import.meta.env.VITE_HCAPTCHA_SITEKEY ?? '10000000-ffff-ffff-ffff-000000000001';
 
 type Status = { type: 'idle' } | { type: 'sending' } | { type: 'ok' } | { type: 'error'; message: string };
 
@@ -47,7 +45,6 @@ export function Contact({ settings }: { settings: SiteSettings }) {
         phone: String(data.get('phone') ?? ''),
         message: String(data.get('message') ?? ''),
         website: String(data.get('website') ?? ''),
-        privacyAccepted: data.get('privacy') === 'on',
         captchaToken: token,
       });
       form.reset();
@@ -146,7 +143,8 @@ export function Contact({ settings }: { settings: SiteSettings }) {
               <div style={{ transform: `scale(${captchaScale})`, transformOrigin: '0 0', width: 303 }}>
               <HCaptcha
                 ref={captchaRef}
-                sitekey={SITE_KEY}
+                sitekey={HCAPTCHA_SITE_KEY}
+                reCaptchaCompat={false}
                 languageOverride="hu"
                 onVerify={setToken}
                 onExpire={() => setToken('')}
