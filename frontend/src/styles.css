@@ -620,7 +620,7 @@ ul {
   overflow: hidden;
   border-radius: 22px;
   background: var(--pink-100);
-  cursor: zoom-in;
+  cursor: pointer;
   box-shadow: 0 10px 30px -18px rgba(212, 82, 127, 0.5);
 }
 .bento-tile img {
