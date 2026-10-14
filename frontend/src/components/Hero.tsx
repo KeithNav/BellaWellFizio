@@ -41,14 +41,14 @@ export function Hero({ settings }: { settings: SiteSettings }) {
 
       <div className="container hero-grid">
         <div className="hero-copy">
-          <p className="eyebrow">Kutya-fizioterápia · Győr</p>
           <h1 id="hero-title" className="hero-title">
+            <span className="eyebrow">Kutya-fizioterápia · Győr</span>
             BellaWell
           </h1>
           <p className="script hero-tagline">Mozgás. Egyensúly. Életminőség.</p>
           <p className="hero-lead">
-            Házhoz menő kutya-fizioterápia Győrben és környékén – egyéni kezelési tervvel, türelemmel, szeretettel és
-            szakértelemmel, hogy kedvence újra felszabadultan mozoghasson.
+            Kutya fizioterápia az otthonod kényelmében Győrben és környékén – egyéni kezelési tervvel, türelemmel, szeretettel és
+            szakértelemmel, hogy kedvenced újra felszabadultan mozoghasson.
           </p>
           <div className="hero-actions">
             <Link to="/#kapcsolat" className="btn btn-primary">

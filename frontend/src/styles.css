@@ -353,6 +353,11 @@ ul {
   letter-spacing: -0.01em;
   margin-bottom: 0.4rem;
 }
+.hero-title .eyebrow {
+  display: block;
+  font-family: var(--font-sans);
+  line-height: 1.4;
+}
 .hero-tagline {
   font-size: clamp(1.6rem, 3vw, 2.2rem);
   margin-bottom: 1.5rem;
@@ -475,6 +480,39 @@ ul {
 }
 .section-blush {
   background: var(--pink-100);
+}
+.section-soft {
+  background: var(--pink-50);
+}
+.area-block {
+  text-align: center;
+  margin-bottom: 1.8rem;
+}
+.area-block h3 {
+  font-size: 1.5rem;
+  margin-bottom: 0.9rem;
+}
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.6rem;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.chips li {
+  padding: 0.45rem 1.1rem;
+  border: 1px solid var(--pink-200);
+  border-radius: 999px;
+  background: var(--white);
+  color: var(--ink-soft);
+  font-size: 0.95rem;
+}
+.area-note {
+  text-align: center;
+  color: var(--ink-soft);
+  margin: 0;
 }
 .section-head {
   text-align: center;

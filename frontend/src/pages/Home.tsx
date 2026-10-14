@@ -1,4 +1,5 @@
 import { About } from '../components/About';
+import { Area } from '../components/Area';
 import { Contact } from '../components/Contact';
 import { Gallery } from '../components/Gallery';
 import { Hero } from '../components/Hero';
@@ -19,6 +20,7 @@ export default function Home({ settings }: { settings: SiteSettings }) {
       <About />
       <Services services={services.data.length ? services.data : DEFAULT_SERVICES} settings={settings} />
       <Gallery items={gallery.data} loading={gallery.loading} />
+      <Area />
       <Contact settings={settings} />
     </main>
   );

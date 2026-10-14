@@ -119,7 +119,7 @@ export function Contact({ settings }: { settings: SiteSettings }) {
                 required
                 minLength={5}
                 maxLength={4000}
-                placeholder="Kutyája neve, fajtája, kora, panasza, kívánt időpont…"
+                placeholder="Kutyád neve, fajtája, kora, panasza, kívánt időpont…"
               />
             </div>
 
