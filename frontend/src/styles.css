@@ -490,13 +490,26 @@ ul {
   font-size: 1.1rem;
 }
 
+/* Cards have very different heights, so they flow in balanced columns instead of equal-height rows. */
 .cards {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 1.5rem;
+  column-count: 3;
+  column-gap: 1.5rem;
 }
 .cards > .reveal {
-  display: flex;
+  display: block;
+  break-inside: avoid;
+  margin-bottom: 1.5rem;
+}
+.cards > .reveal > .card {
+  height: 100%;
+  min-width: 0;
+}
+@media (min-width: 901px) {
+  /* Fixed column split: 1-3 | 4-7 | 8-10 */
+  .cards > .reveal:nth-child(4),
+  .cards > .reveal:nth-child(8) {
+    break-before: column;
+  }
 }
 .card {
   background: var(--pink-50);
@@ -518,9 +531,46 @@ ul {
 }
 .card p {
   color: var(--ink-soft);
-  margin: 0;
+  margin: 0 0 0.8rem;
 }
-
+.card-body > :last-child {
+  margin-bottom: 0;
+}
+.cards-title {
+  text-align: center;
+  font-size: clamp(1.8rem, 4vw, 2.4rem);
+  margin-bottom: 2rem;
+}
+.card-label {
+  margin: 0.4rem 0 0.4rem;
+  color: var(--ink);
+  font-weight: 500;
+}
+.card-list ul {
+  list-style: none;
+  margin: 0 0 0.8rem;
+  padding: 0;
+}
+.card-list li {
+  position: relative;
+  padding-left: 1.3rem;
+  margin-bottom: 0.35rem;
+  color: var(--ink-soft);
+}
+.card-list li::before {
+  content: '';
+  position: absolute;
+  left: 0.2rem;
+  top: 0.62em;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--pink-300);
+}
+.card .card-note {
+  font-style: italic;
+  color: var(--ink);
+}
 /* Prices */
 .price-card {
   max-width: 760px;
@@ -1025,9 +1075,11 @@ ul {
     display: none;
   }
   .hero-grid,
-  .contact-grid,
-  .cards {
+  .contact-grid {
     grid-template-columns: 1fr;
+  }
+  .cards {
+    column-count: 2;
   }
   .hero-grid {
     gap: 2rem;
@@ -1135,7 +1187,16 @@ ul {
     letter-spacing: 0.22em;
   }
   .cards {
-    gap: 1rem;
+    display: flex;
+    flex-direction: column;
+    column-count: 1;
+  }
+  /* Puppy fitness sits after the TENS card in the markup (desktop columns); on phones it follows Kutya-fitness. */
+  .cards > .reveal:nth-child(7) {
+    order: 1;
+  }
+  .cards > .reveal {
+    margin-bottom: 1rem;
   }
   .card {
     display: grid;
@@ -1145,7 +1206,6 @@ ul {
   }
   .card .card-icon {
     margin: 0;
-    grid-row: span 2;
   }
   .card h3 {
     font-size: 1.45rem;

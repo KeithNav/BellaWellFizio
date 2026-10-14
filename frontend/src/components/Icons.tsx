@@ -89,3 +89,42 @@ export const HandsIcon = (props: IconProps) => (
     <path d="M4 14c2-3 4-3 6-1.500s4 1.500 6-1.500l4 2.500M4 19c2-3 4-3 6-1.500s4 1.500 6-1.500l4 2.500M7 8.500a2 2 0 1 0 0-.1M16 5.500a2 2 0 1 0 0-.1" />
   </svg>
 );
+
+export const ClipboardIcon = (props: IconProps) => (
+  <svg {...base(props)} {...stroke}>
+    <rect x="5" y="4.5" width="14" height="16.5" rx="2.5" />
+    <path d="M9 4.5V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v.5M8.5 11h7M8.5 14.5h7M8.5 18h4" />
+  </svg>
+);
+
+export const JointIcon = (props: IconProps) => (
+  <svg {...base(props)} {...stroke}>
+    <path d="M20 12a8 8 0 0 1-13.6 5.7M4 12a8 8 0 0 1 13.6-5.7M17.6 3v3.3h-3.3M6.4 21v-3.3h3.3" />
+  </svg>
+);
+
+export const ThermoIcon = (props: IconProps) => (
+  <svg {...base(props)} {...stroke}>
+    <path d="M10 14.8V5a2 2 0 0 1 4 0v9.8a4 4 0 1 1-4 0ZM12 9v7" />
+  </svg>
+);
+
+export const BoltIcon = (props: IconProps) => (
+  <svg {...base(props)} {...stroke}>
+    <path d="M13 3 5.5 13.5H11L10 21l7.5-10.5H12L13 3Z" />
+  </svg>
+);
+
+export const LaserIcon = (props: IconProps) => (
+  <svg {...base(props)} {...stroke}>
+    <circle cx="12" cy="12" r="2" />
+    <path d="M12 3v4M12 17v4M3 12h4M17 12h4M5.6 5.6l2.8 2.8M15.6 15.6l2.8 2.8M18.4 5.6l-2.8 2.8M8.4 15.6l-2.8 2.8" />
+  </svg>
+);
+
+export const ShieldIcon = (props: IconProps) => (
+  <svg {...base(props)} {...stroke}>
+    <path d="M12 3 5 6v5.5c0 4.4 2.9 7.9 7 9.5 4.1-1.6 7-5.1 7-9.5V6l-7-3Z" />
+    <path d="m9 12 2.2 2.2L15.200 10" />
+  </svg>
+);

@@ -66,7 +66,7 @@ export function Contact({ settings }: { settings: SiteSettings }) {
             Időpontfoglalás
           </h2>
           <p className="section-lead">
-            Írjon nekem, vagy hívjon bizalommal – egyeztetem a kutyája állapotát és a legalkalmasabb időpontot.
+            Írj nekem, vagy hívj bizalommal – egyeztetem a kutyád állapotát és a legalkalmasabb időpontot.
           </p>
 
           <ul className="contact-list">
@@ -124,7 +124,7 @@ export function Contact({ settings }: { settings: SiteSettings }) {
             </div>
 
             <div className="hp" aria-hidden="true">
-              <label htmlFor="cf-website">Ne töltse ki</label>
+              <label htmlFor="cf-website">Ne töltsd ki</label>
               <input id="cf-website" name="website" type="text" tabIndex={-1} autoComplete="off" />
             </div>
 
@@ -158,7 +158,7 @@ export function Contact({ settings }: { settings: SiteSettings }) {
             </button>
 
             <div aria-live="polite">
-              {status.type === 'ok' && <p className="form-msg ok">Köszönöm! Üzenetét megkaptam, hamarosan válaszolok.</p>}
+              {status.type === 'ok' && <p className="form-msg ok">Köszönöm! Üzeneted megkaptam, hamarosan válaszolok.</p>}
               {status.type === 'error' && <p className="form-msg err">{status.message}</p>}
             </div>
           </form>
