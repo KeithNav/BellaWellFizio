@@ -1,8 +1,8 @@
 import { Reveal } from './Reveal';
 
 // Keep in sync with areaServed in index.html (structured data).
-const DISTRICTS = ['Belváros', 'Adyváros', 'Nádorváros', 'Marcalváros', 'Gyárváros', 'Szabadhegy', 'Ménfőcsanak', 'Gyirmót', 'Győrszentiván', 'Révfalu'];
-const VILLAGES = ['Győrújbarát', 'Nyúl', 'Écs', 'Pér', 'Rábapatona', 'Kisbajcs', 'Dunaszeg', 'Bőny', 'Abda'];
+const DISTRICTS = ['Belváros', 'Adyváros', 'Nádorváros', 'Marcalváros', 'Gyárváros', 'Szabadhegy', 'Ménfőcsanak', 'Gyirmót', 'Győrszentiván', 'Révfalu', 'Újváros', 'Viziváros', 'Kismegyer'];
+const VILLAGES = ['Győrújbarát', 'Nyúl', 'Écs', 'Pér', 'Rábapatona', 'Kisbajcs', 'Dunaszeg', 'Bőny', 'Abda', 'Koroncó', 'Öttevény', 'Győrújfalu', 'Győrzámoly', 'Győrladamér', 'Töltéstava', 'Győrság', 'Tényő', 'Ravazd', 'Győrszemere', 'Ikrény', 'Börcs', 'Nagybajcs'];
 
 export function Area() {
   return (
