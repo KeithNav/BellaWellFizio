@@ -9,6 +9,7 @@ Amikor a felhasználó deployt kér, használd a scriptet – ne írj saját SSH
 ```powershell
 powershell -ExecutionPolicy Bypass -File scripts\deploy.ps1                  # frontend
 powershell -ExecutionPolicy Bypass -File scripts\deploy.ps1 -Target backend  # Strapi (újraindul, adatbázis-mentés készül)
+powershell -ExecutionPolicy Bypass -File scripts\deploy.ps1 -Target nginx    # nginx beállítás (deploy\nginx-bellawellfizio.conf; mentés + nginx -t + reload)
 powershell -ExecutionPolicy Bypass -File scripts\deploy.ps1 -Rollback        # előző frontend verzió
 powershell -ExecutionPolicy Bypass -File scripts\deploy.ps1 -CheckOnly       # állapotteszt
 ```
@@ -38,5 +39,10 @@ cd frontend; npm run build                   # tsc + vite + prerender (dist\), u
 
 - Az oldal build után előre renderelt HTML-t kap (`frontend/scripts/prerender.mjs`, `src/entry-server.tsx`) a keresőknek,
   ezért komponens szinten kerüld a `window`/`document` használatát renderelés közben (csak `useEffect`-ben).
-- Új oldal (route) esetén vedd fel a `frontend/scripts/prerender.mjs` útvonallistájába és a `frontend/public/sitemap.xml`-be.
+- Új oldal (route) esetén vedd fel a `frontend/scripts/prerender.mjs` útvonallistájába és a `frontend/public/sitemap.xml`-be;
+  az nginx a `/<oldal>` útvonalat a `<oldal>.html` fájlból szolgálja ki, minden ismeretlen URL valódi 404 (`404.html`).
+- A build a prerender közben az **éles API-ból** tölti le a tartalmat (hero kép, árak, galéria), és beágyazza a HTML-be
+  (`window.__BW_DATA__`). Build-hez ezért internet kell; ha az API nem érhető el, figyelmeztet, és adat nélkül renderel.
+  A böngésző betöltés után frissíti az adatot az API-ból, tehát a Strapi-ban végzett módosítások deploy nélkül is megjelennek.
+- A GYIK szövegei: `frontend/src/lib/faq.ts` (ugyanez adja a FAQPage strukturált adatot).
 - A kapcsolati űrlap a Web3Forms-on keresztül működik (`frontend/.env`), nem a Strapin.

@@ -32,7 +32,7 @@ export function Services({ services, settings }: { services: Service[]; settings
         <Reveal className="section-head">
           <p className="eyebrow">Szolgáltatások és árak</p>
           <h2 id="services-title" className="section-title">
-            Átlátható árak, személyre szabott kezelés
+            Kutya fizioterápia árak: átlátható árak, személyre szabott kezelés
           </h2>
         </Reveal>
 

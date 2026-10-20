@@ -8,7 +8,8 @@ Az oldal: https://bellawellfizio.hu · Szerver: `root@91.98.141.17` (Hetzner VPS
 # a repo gyökeréből
 powershell -ExecutionPolicy Bypass -File scripts\deploy.ps1                  # frontend (alapértelmezett)
 powershell -ExecutionPolicy Bypass -File scripts\deploy.ps1 -Target backend  # Strapi
-powershell -ExecutionPolicy Bypass -File scripts\deploy.ps1 -Target all
+powershell -ExecutionPolicy Bypass -File scripts\deploy.ps1 -Target nginx    # nginx site (deploy\nginx-bellawellfizio.conf)
+powershell -ExecutionPolicy Bypass -File scripts\deploy.ps1 -Target all     # backend + frontend + nginx
 powershell -ExecutionPolicy Bypass -File scripts\deploy.ps1 -Rollback        # előző frontend verzió
 powershell -ExecutionPolicy Bypass -File scripts\deploy.ps1 -CheckOnly       # csak kapcsolat- és állapotteszt
 ```
@@ -26,6 +27,12 @@ feltöltés → atomi csere a `/var/www/bellawell` mappán. Az előző verzió a
 10 marad) → a kód cseréje → `npm ci` csak ha a `package-lock.json` változott → `systemctl restart bellawell-strapi` →
 várakozás, amíg az API válaszol. **Nem küldi fel** és nem írja felül: `.env`, `.tmp/data.db`, `public/uploads`. A tartalom
 (szolgáltatások, galéria, hero kép, beállítások) az éles admin felületen szerkesztendő (`/admin`), nem a helyi adatbázisból.
+
+**nginx:** a `deploy\nginx-bellawellfizio.conf` fájl feltöltése a `/etc/nginx/sites-available/bellawellfizio` helyére. Előtte
+mentés készül (`/opt/bellawell/backups/nginx-bellawellfizio-*.conf`), `nginx -t` ellenőriz, és hibás konfig esetén a script
+automatikusan visszaállítja a régit. A konfig tartalmazza a `www` → `bellawellfizio.hu` és a `http` → `https` átirányítást,
+a duplikált URL-ek (`/index.html`, `*.html`) átirányítását és a valódi 404-et az ismeretlen URL-ekre. A certbot által
+kezelt SSL sorok (`# managed by Certbot`) a fájlban maradnak; a tanúsítvány megújítása nem érinti.
 
 ## Kulcs és hozzáférés
 

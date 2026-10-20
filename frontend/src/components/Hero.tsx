@@ -11,13 +11,15 @@ const PILLARS = [
   { icon: HeartIcon, label: 'Szeretettel és szakértelemmel' },
 ];
 
+export const HERO_IMAGE_SIZES = '(max-width: 900px) 92vw, 640px';
+
 function HeroImage({ image }: { image?: StrapiImage | null }) {
   if (image) {
     return (
       <img
         src={mediaUrl(image.url)}
         srcSet={imageSrcSet(image)}
-        sizes="(max-width: 900px) 92vw, 640px"
+        sizes={HERO_IMAGE_SIZES}
         alt={image.alternativeText || 'BellaWell Kutya-fizioterápia'}
         width={image.width}
         height={image.height}

@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { getPrefetched, type Prefetched } from './prefetch';
 import type { Service, SiteSettings } from './types';
 
 export const DEFAULT_SERVICES: Service[] = [
@@ -24,8 +25,9 @@ export const formatPrice = (price: number) => `${String(price).replace(/\B(?=(\d
 export const telHref = (phone: string) => `tel:${phone.replace(/[^+\d]/g, '')}`;
 
 // Loads CMS data; keeps the fallback when the API is unreachable so the page never breaks.
-export function useApi<T>(load: () => Promise<T>, fallback: T) {
-  const [data, setData] = useState<T>(fallback);
+// Build-time data (when present) is the initial value and is refreshed from the API after mount.
+export function useApi<T>(load: () => Promise<T>, fallback: T, key?: keyof Prefetched) {
+  const [data, setData] = useState<T>(() => ((key ? getPrefetched(key) : undefined) as T | undefined) ?? fallback);
   const [loading, setLoading] = useState(true);
   const [failed, setFailed] = useState(false);
 

@@ -10,6 +10,7 @@ import type { SiteSettings } from './lib/types';
 import Adatvedelem from './pages/Adatvedelem';
 import Home from './pages/Home';
 import Impresszum from './pages/Impresszum';
+import NotFound from './pages/NotFound';
 
 function ScrollManager() {
   const { pathname, hash } = useLocation();
@@ -27,7 +28,7 @@ function ScrollManager() {
 }
 
 export default function App() {
-  const { data } = useApi<SiteSettings>(fetchSettings, DEFAULT_SETTINGS);
+  const { data } = useApi<SiteSettings>(fetchSettings, DEFAULT_SETTINGS, 'settings');
   const settings: SiteSettings = { ...DEFAULT_SETTINGS, ...Object.fromEntries(Object.entries(data ?? {}).filter(([, v]) => v !== null && v !== '')) };
 
   return (
@@ -41,7 +42,7 @@ export default function App() {
         <Route path="/" element={<Home settings={settings} />} />
         <Route path="/impresszum" element={<Impresszum />} />
         <Route path="/adatvedelem" element={<Adatvedelem />} />
-        <Route path="*" element={<Home settings={settings} />} />
+        <Route path="*" element={<NotFound />} />
       </Routes>
       <Footer settings={settings} />
       <MobileCall phone={settings.phone} />

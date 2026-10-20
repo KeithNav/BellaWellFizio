@@ -5,13 +5,14 @@
 .EXAMPLE
   powershell -ExecutionPolicy Bypass -File scripts\deploy.ps1                 # frontend (alapertelmezett)
   powershell -ExecutionPolicy Bypass -File scripts\deploy.ps1 -Target backend # Strapi
+  powershell -ExecutionPolicy Bypass -File scripts\deploy.ps1 -Target nginx   # nginx site (deploy\nginx-bellawellfizio.conf)
   powershell -ExecutionPolicy Bypass -File scripts\deploy.ps1 -Target all
   powershell -ExecutionPolicy Bypass -File scripts\deploy.ps1 -Rollback       # elozo frontend verzio
   powershell -ExecutionPolicy Bypass -File scripts\deploy.ps1 -CheckOnly      # csak kapcsolat- es allapotteszt
 #>
 [CmdletBinding()]
 param(
-  [ValidateSet('frontend', 'backend', 'all')][string]$Target = 'frontend',
+  [ValidateSet('frontend', 'backend', 'nginx', 'all')][string]$Target = 'frontend',
   [switch]$Rollback,
   [switch]$CheckOnly
 )
@@ -68,7 +69,7 @@ function Get-BundleName([string]$Html) {
   if ($m.Success) { $m.Groups[1].Value } else { '' }
 }
 
-function Test-Site([string]$ExpectedBundle) {
+function Test-Site([string]$ExpectedBundle, [bool]$CheckNginx = $false) {
   Write-Step 'Ellenorzes az eles oldalon'
   $failed = $false
   foreach ($path in '/', '/impresszum', '/adatvedelem', '/api/services', '/sitemap.xml') {
@@ -76,6 +77,19 @@ function Test-Site([string]$ExpectedBundle) {
     $ok = $code -eq '200'
     if (-not $ok) { $failed = $true }
     Write-Host ('  {0,-14} {1}' -f $path, $code) -ForegroundColor $(if ($ok) { 'Green' } else { 'Red' })
+  }
+  if ($CheckNginx) {
+    $checks = @(
+      @{ Url = "$Site/nincs-ilyen-oldal"; Want = '404'; Label = 'ismeretlen URL (404)' },
+      @{ Url = 'https://www.bellawellfizio.hu/'; Want = '301'; Label = 'www -> apex (301)' },
+      @{ Url = "$Site/index.html"; Want = '301'; Label = '/index.html -> / (301)' }
+    )
+    foreach ($c in $checks) {
+      $code = Get-StatusCode $c.Url
+      $ok = $code -eq $c.Want
+      if (-not $ok) { $failed = $true }
+      Write-Host ('  {0,-26} {1}' -f $c.Label, $code) -ForegroundColor $(if ($ok) { 'Green' } else { 'Red' })
+    }
   }
   $other = Get-StatusCode 'https://eletkertjudittal.hu/'
   Write-Host ('  eletkertjudittal.hu (masik oldal) {0}' -f $other) -ForegroundColor $(if ($other -eq '200') { 'Green' } else { 'Red' })
@@ -131,6 +145,33 @@ mv /var/www/bellawell /var/www/bellawell.prev
 mv "$NEW" /var/www/bellawell
 nginx -t
 echo "frontend telepitve"
+'@
+}
+
+function Deploy-Nginx {
+  $conf = Join-Path $Root 'deploy\nginx-bellawellfizio.conf'
+  if (-not (Test-Path $conf)) { throw "Nincs $conf" }
+  Write-Step 'nginx beallitas feltoltese'
+  Send-File $conf '/tmp/bellawell-nginx.conf'
+  Write-Step 'nginx frissitese (mentes, nginx -t, reload; hiba eseten visszaallitas)'
+  Invoke-Remote @'
+set -uo pipefail
+CONF=/etc/nginx/sites-available/bellawellfizio
+mkdir -p /opt/bellawell/backups
+BAK="/opt/bellawell/backups/nginx-bellawellfizio-$(date +%Y%m%d-%H%M%S).conf"
+cp "$CONF" "$BAK"
+ls -1t /opt/bellawell/backups/nginx-bellawellfizio-*.conf | tail -n +11 | xargs -r rm -f
+cp /tmp/bellawell-nginx.conf "$CONF"
+rm -f /tmp/bellawell-nginx.conf
+if nginx -t; then
+  systemctl reload nginx
+  echo "nginx frissitve (mentes: $BAK)"
+else
+  cp "$BAK" "$CONF"
+  nginx -t
+  echo "HIBA: az uj nginx beallitas hibas, a regi vissza lett allitva ($BAK)"
+  exit 1
+fi
 '@
 }
 
@@ -227,4 +268,5 @@ echo "visszaallitva"
 
 if ($Target -in 'backend', 'all') { Deploy-Backend }
 if ($Target -in 'frontend', 'all') { Deploy-Frontend }
-Test-Site $script:Bundle
+if ($Target -in 'nginx', 'all') { Deploy-Nginx }
+Test-Site $script:Bundle ($Target -in 'nginx', 'all')
