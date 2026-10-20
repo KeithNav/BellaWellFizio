@@ -889,6 +889,18 @@ ul {
 .captcha {
   overflow: hidden;
 }
+.captcha-placeholder {
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  height: 78px;
+  margin: 0;
+  padding: 0 1rem;
+  border: 1px dashed var(--pink-300);
+  border-radius: 6px;
+  color: var(--ink-soft);
+  font-size: 0.85rem;
+}
 .form-msg {
   margin: 0;
   padding: 0.9rem 1.1rem;

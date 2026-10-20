@@ -15,6 +15,9 @@ export function Contact({ settings }: { settings: SiteSettings }) {
   const [status, setStatus] = useState<Status>({ type: 'idle' });
   const captchaBox = useRef<HTMLDivElement>(null);
   const [captchaScale, setCaptchaScale] = useState(1);
+  // hCaptcha sets third-party cookies and calls deprecated browser APIs, so it is only loaded once the visitor starts the form.
+  const [captchaOn, setCaptchaOn] = useState(false);
+  const activateCaptcha = () => setCaptchaOn(true);
 
   // The hCaptcha widget is a fixed 303px wide; shrink it on very narrow phones instead of overflowing.
   useEffect(() => {
@@ -95,7 +98,12 @@ export function Contact({ settings }: { settings: SiteSettings }) {
         </Reveal>
 
         <Reveal delay={120}>
-          <form className="contact-form" onSubmit={onSubmit}>
+          <form
+            className="contact-form"
+            onSubmit={onSubmit}
+            onFocusCapture={activateCaptcha}
+            onPointerDownCapture={activateCaptcha}
+          >
             <div className="field">
               <label htmlFor="cf-name">Név *</label>
               <input id="cf-name" name="name" type="text" required maxLength={120} autoComplete="name" />
@@ -141,15 +149,19 @@ export function Contact({ settings }: { settings: SiteSettings }) {
               style={{ height: 78 * captchaScale }}
             >
               <div style={{ transform: `scale(${captchaScale})`, transformOrigin: '0 0', width: 303 }}>
-              <HCaptcha
-                ref={captchaRef}
-                sitekey={HCAPTCHA_SITE_KEY}
-                reCaptchaCompat={false}
-                languageOverride="hu"
-                onVerify={setToken}
-                onExpire={() => setToken('')}
-                onError={() => setToken('')}
-              />
+                {captchaOn ? (
+                  <HCaptcha
+                    ref={captchaRef}
+                    sitekey={HCAPTCHA_SITE_KEY}
+                    reCaptchaCompat={false}
+                    languageOverride="hu"
+                    onVerify={setToken}
+                    onExpire={() => setToken('')}
+                    onError={() => setToken('')}
+                  />
+                ) : (
+                  <p className="captcha-placeholder">Robotvédelem – az űrlap kitöltésekor töltődik be.</p>
+                )}
               </div>
             </div>
 
