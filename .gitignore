@@ -2,3 +2,10 @@
 .env
 .env.local
 .DS_Store
+
+# SSH kulcsok es deploy mentesek soha nem kerulhetnek a repoba
+bellawell_deploy*
+id_ed25519*
+id_rsa*
+*.pem
+BellaWell-deploy-backup/

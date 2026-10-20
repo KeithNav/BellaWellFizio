@@ -67,14 +67,20 @@ a Strapi publikusan kiszolgálja őket.
 > sitekey-ét kell használni (`50b2fe65-b00b-4b9e-ad62-3ba471098be2`, ez az alapérték), saját hCaptcha kulcs csak fizetős
 > csomaggal használható. Az SMTP és a `HCAPTCHA_*` backend változók így nem szükségesek.
 
+## Üzembe helyezés (deploy)
+
+Az oldal a saját VPS-en fut (a szerveren egy másik oldal is van). Az éles deploy egyetlen paranccsal megy:
+`powershell -ExecutionPolicy Bypass -File scripts\deploy.ps1` (frontend), `-Target backend` (Strapi), `-Rollback`.
+A szerver felépítését, a kulcskezelést és az új gépen való beállítást a [DEPLOY.md](DEPLOY.md) írja le.
+
 ## Élesítés előtti teendők
 
 1. Töltsd ki az Impresszum és az Adatvédelmi tájékoztató `[szögletes zárójeles]` adatait:
    `frontend/src/lib/business.ts`.
 2. Állítsd be az éles Strapi kulcsokat (`APP_KEYS`, `*_SALT`, `*_SECRET`) és állítsd át a `HOST`/`PUBLIC_URL` értékeket.
 3. Production adatbázis (pl. PostgreSQL) és tartós média tárolás (fájlrendszer vagy felhő provider).
-4. `frontend`: `npm run build`, a `dist/` mappa kiszolgálása úgy, hogy minden útvonal az `index.html`-re essen vissza
-   (SPA fallback az `/impresszum` és `/adatvedelem` oldalakhoz).
+4. `frontend`: `npm run build` (előre renderelt HTML készül), a `dist/` mappa kiszolgálása úgy, hogy az `/impresszum` és
+   `/adatvedelem` a saját `.html` fájlját kapja, minden más útvonal pedig az `index.html`-re essen vissza.
 5. Cserélj hCaptcha és SMTP adatokat élesre, `CLIENT_URLS`-ben szerepeljen a végleges domain.
 
 ## Jogi oldalak
