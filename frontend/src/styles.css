@@ -1035,11 +1035,24 @@ ul {
 .site-footer .socials a {
   color: var(--pink-300);
 }
+.footer-badge {
+  display: flex;
+  justify-content: center;
+  margin-top: 2.5rem;
+}
+.sa-badge {
+  display: inline-block;
+  line-height: 0;
+}
+.sa-badge svg {
+  max-width: 100%;
+  height: auto;
+}
 .footer-copy {
   text-align: center;
   font-size: 0.8rem;
   color: #b99ea4;
-  margin: 2.5rem 0 0;
+  margin: 1.25rem 0 0;
 }
 
 /* Legal pages */

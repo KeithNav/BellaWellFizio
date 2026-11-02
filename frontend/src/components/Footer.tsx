@@ -3,6 +3,7 @@ import { telHref } from '../lib/content';
 import { NAV } from '../lib/nav';
 import type { SiteSettings } from '../lib/types';
 import { FacebookIcon, InstagramIcon, PawIcon } from './Icons';
+import { SimpleAnalyticsBadge } from './SimpleAnalyticsBadge';
 
 export function Footer({ settings }: { settings: SiteSettings }) {
   return (
@@ -43,6 +44,9 @@ export function Footer({ settings }: { settings: SiteSettings }) {
           <Link to="/impresszum">Impresszum</Link>
           <Link to="/adatvedelem">Adatvédelmi tájékoztató</Link>
         </nav>
+      </div>
+      <div className="footer-badge">
+        <SimpleAnalyticsBadge />
       </div>
       <p className="footer-copy">© {new Date().getFullYear()} BellaWell Kutya-fizioterápia · bellawellfizio.hu</p>
     </footer>
